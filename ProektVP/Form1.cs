@@ -20,7 +20,7 @@ namespace ProektVP
         public static int SIDE = 50;
         public static readonly int STEPS = 3;
         private static readonly int TIMER_INTERVAL = 50;
-        private static readonly int SLEEP_INTERVAL = 3000;
+        private static readonly int SLEEP_INTERVAL = 2300;
        // private static readonly int SEE_DISTANCE = 5;
         public bool isAtStart;
         bool[,] maze;
