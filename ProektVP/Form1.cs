@@ -14,8 +14,8 @@ namespace ProektVP
     public partial class Form1 : Form
     {
         Player player;
-        public static readonly int WORLD_WIDTH = 28;        // 15, 15 med 28,28 hard
-        public static readonly int WORLD_HEIGHT = 28;
+        public static readonly int WORLD_WIDTH = 15;        // 15, 15 med 28,28 hard
+        public static readonly int WORLD_HEIGHT = 15;
         public static int SIDE = 50;
         public static readonly int STEPS = 3;
         private static readonly int TIMER_INTERVAL = 50;
