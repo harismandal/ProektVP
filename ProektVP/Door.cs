@@ -12,7 +12,6 @@ namespace ProektVP
         public int X { get; set; }
         public int Y { get; set; }
         static Brush brush = new SolidBrush(Color.Brown);
-        public int david { get; set; }
         public Door(int yCoordinate,int xCoordinate)
         {
             X = xCoordinate;
