@@ -7,3 +7,6 @@ c:\Users\Haris_2\documents\visual studio 2013\Projects\ProektVP\ProektVP\obj\Deb
 c:\Users\Haris_2\documents\visual studio 2013\Projects\ProektVP\ProektVP\obj\Debug\ProektVP.csproj.GenerateResource.Cache
 c:\Users\Haris_2\documents\visual studio 2013\Projects\ProektVP\ProektVP\obj\Debug\ProektVP.exe
 c:\Users\Haris_2\documents\visual studio 2013\Projects\ProektVP\ProektVP\obj\Debug\ProektVP.pdb
+C:\Users\Ivan\Desktop\ProektVP\ProektVP\bin\Debug\ProektVP.exe.config
+C:\Users\Ivan\Desktop\ProektVP\ProektVP\obj\Debug\ProektVP.exe
+C:\Users\Ivan\Desktop\ProektVP\ProektVP\obj\Debug\ProektVP.pdb
