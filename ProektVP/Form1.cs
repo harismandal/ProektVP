@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -48,8 +49,15 @@ namespace ProektVP
              this.FormBorderStyle = FormBorderStyle.FixedSingle; //disables resize
              this.MaximizeBox = false;
              this.MinimizeBox = false;
-             canMove = false;       
+             canMove = false;
+             playSimpleSound();
+        }
 
+        private void playSimpleSound()
+        {
+            SoundPlayer simpleSound = new SoundPlayer(@"C:\Users\Haris_2\Documents\Visual Studio 2013\Projects\ProektVP\ProektVP\assets\tank.wav");
+            //SoundPlayer simpleSound = new SoundPlayer(@"assets\tank.wav");
+            simpleSound.Play();
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
