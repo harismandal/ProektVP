@@ -10,3 +10,12 @@ c:\Users\Haris_2\documents\visual studio 2013\Projects\ProektVP\ProektVP\obj\Deb
 C:\Users\Ivan\Desktop\ProektVP\ProektVP\bin\Debug\ProektVP.exe.config
 C:\Users\Ivan\Desktop\ProektVP\ProektVP\obj\Debug\ProektVP.exe
 C:\Users\Ivan\Desktop\ProektVP\ProektVP\obj\Debug\ProektVP.pdb
+C:\GitHub\ProektVP\ProektVP\bin\Debug\ProektVP.exe.config
+C:\GitHub\ProektVP\ProektVP\obj\Debug\ProektVP.exe
+C:\GitHub\ProektVP\ProektVP\obj\Debug\ProektVP.pdb
+C:\GitHub\ProektVP\ProektVP\bin\Debug\ProektVP.exe
+C:\GitHub\ProektVP\ProektVP\bin\Debug\ProektVP.pdb
+C:\GitHub\ProektVP\ProektVP\obj\Debug\ProektVP.csprojResolveAssemblyReference.cache
+C:\GitHub\ProektVP\ProektVP\obj\Debug\ProektVP.Form1.resources
+C:\GitHub\ProektVP\ProektVP\obj\Debug\ProektVP.Properties.Resources.resources
+C:\GitHub\ProektVP\ProektVP\obj\Debug\ProektVP.csproj.GenerateResource.Cache

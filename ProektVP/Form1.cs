@@ -55,7 +55,7 @@ namespace ProektVP
 
         private void playSimpleSound()
         {
-            SoundPlayer simpleSound = new SoundPlayer(@"C:\Users\Haris_2\Documents\Visual Studio 2013\Projects\ProektVP\ProektVP\assets\tank.wav");
+            SoundPlayer simpleSound = new SoundPlayer(@"tank.wav");
             //SoundPlayer simpleSound = new SoundPlayer(@"assets\tank.wav");
             simpleSound.Play();
         }
@@ -204,6 +204,11 @@ namespace ProektVP
         private Boolean outOfBounds(int yCoordinate, int xCoordinate)
         {
             return (xCoordinate < 0 || xCoordinate > WORLD_WIDTH + 1 || yCoordinate < 0 || yCoordinate > WORLD_HEIGHT + 1);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
 
     }
