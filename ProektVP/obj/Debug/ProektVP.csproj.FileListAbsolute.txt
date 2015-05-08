@@ -1,0 +1,9 @@
+c:\users\haris_2\documents\visual studio 2013\Projects\ProektVP\ProektVP\bin\Debug\ProektVP.exe.config
+c:\Users\Haris_2\documents\visual studio 2013\Projects\ProektVP\ProektVP\bin\Debug\ProektVP.exe
+c:\Users\Haris_2\documents\visual studio 2013\Projects\ProektVP\ProektVP\bin\Debug\ProektVP.pdb
+c:\Users\Haris_2\documents\visual studio 2013\Projects\ProektVP\ProektVP\obj\Debug\ProektVP.csprojResolveAssemblyReference.cache
+c:\Users\Haris_2\documents\visual studio 2013\Projects\ProektVP\ProektVP\obj\Debug\ProektVP.Form1.resources
+c:\Users\Haris_2\documents\visual studio 2013\Projects\ProektVP\ProektVP\obj\Debug\ProektVP.Properties.Resources.resources
+c:\Users\Haris_2\documents\visual studio 2013\Projects\ProektVP\ProektVP\obj\Debug\ProektVP.csproj.GenerateResource.Cache
+c:\Users\Haris_2\documents\visual studio 2013\Projects\ProektVP\ProektVP\obj\Debug\ProektVP.exe
+c:\Users\Haris_2\documents\visual studio 2013\Projects\ProektVP\ProektVP\obj\Debug\ProektVP.pdb
