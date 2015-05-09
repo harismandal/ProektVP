@@ -19,3 +19,22 @@ C:\GitHub\ProektVP\ProektVP\obj\Debug\ProektVP.csprojResolveAssemblyReference.ca
 C:\GitHub\ProektVP\ProektVP\obj\Debug\ProektVP.Form1.resources
 C:\GitHub\ProektVP\ProektVP\obj\Debug\ProektVP.Properties.Resources.resources
 C:\GitHub\ProektVP\ProektVP\obj\Debug\ProektVP.csproj.GenerateResource.Cache
+C:\Users\Ivan\Desktop\Lepluto\ProektVP-a23d57b489f0343c012a70c8b7387e4465995bf4\ProektVP\bin\Debug\ProektVP.exe.config
+C:\Users\Ivan\Desktop\Lepluto\ProektVP-a23d57b489f0343c012a70c8b7387e4465995bf4\ProektVP\obj\Debug\ProektVP.exe
+C:\Users\Ivan\Desktop\Lepluto\ProektVP-a23d57b489f0343c012a70c8b7387e4465995bf4\ProektVP\obj\Debug\ProektVP.pdb
+C:\Users\Ivan\Desktop\Lepluto\ProektVP-a23d57b489f0343c012a70c8b7387e4465995bf4\ProektVP\bin\Debug\ProektVP.exe
+C:\Users\Ivan\Desktop\Lepluto\ProektVP-a23d57b489f0343c012a70c8b7387e4465995bf4\ProektVP\bin\Debug\ProektVP.pdb
+C:\Users\Ivan\Desktop\Lepluto\ProektVP-a23d57b489f0343c012a70c8b7387e4465995bf4\ProektVP\obj\Debug\ProektVP.csprojResolveAssemblyReference.cache
+C:\Users\Ivan\Desktop\Lepluto\ProektVP-a23d57b489f0343c012a70c8b7387e4465995bf4\ProektVP\obj\Debug\ProektVP.Form1.resources
+C:\Users\Ivan\Desktop\Lepluto\ProektVP-a23d57b489f0343c012a70c8b7387e4465995bf4\ProektVP\obj\Debug\ProektVP.Properties.Resources.resources
+C:\Users\Ivan\Desktop\Lepluto\ProektVP-a23d57b489f0343c012a70c8b7387e4465995bf4\ProektVP\obj\Debug\ProektVP.csproj.GenerateResource.Cache
+C:\Users\Ivan\Desktop\Lepluto\ProektVP-a23d57b489f0343c012a70c8b7387e4465995bf4\ProektVP\obj\Debug\ProektVP.Difficulty.resources
+C:\Users\Ivan\Desktop\Lepluto\ProektVP-a23d57b489f0343c012a70c8b7387e4465995bf4\ProektVP\obj\Debug\ProektVP.Menu.resources
+C:\Users\Ivan\Desktop\Lepluto\ProektVP-a23d57b489f0343c012a70c8b7387e4465995bf4\ProektVP\obj\Debug\ProektVP.HallOfFame.resources
+C:\Users\Ivan\Desktop\Lepluto\ProektVP-a23d57b489f0343c012a70c8b7387e4465995bf4\ProektVP\obj\Debug\ProektVP.NameInput.resources
+C:\Users\Ivan\Desktop\Lepluto\ZA HARIS\ProektVP\bin\Debug\ProektVP.exe.config
+C:\Users\Ivan\Desktop\Lepluto\ZA HARIS\ProektVP\obj\Debug\ProektVP.exe
+C:\Users\Ivan\Desktop\Lepluto\ZA HARIS\ProektVP\obj\Debug\ProektVP.pdb
+C:\Users\Ivan\Desktop\ProjectVP\ProektVP\bin\Debug\ProektVP.exe.config
+C:\Users\Ivan\Desktop\ProjectVP\ProektVP\obj\Debug\ProektVP.exe
+C:\Users\Ivan\Desktop\ProjectVP\ProektVP\obj\Debug\ProektVP.pdb

@@ -14,29 +14,45 @@ namespace ProektVP
 {
     public partial class Form1 : Form
     {
-        Player player;
-        public static readonly int WORLD_WIDTH = 15;        // 15, 15 med 28,28 hard
-        public static readonly int WORLD_HEIGHT = 15;
+        public static Player player;
+        public static List<Player> easyHighScores = new List<Player>();
+        public static List<Player> mediumHighScores = new List<Player>();
+        public static List<Player> hardHighScores = new List<Player>();
+        public static int WORLD_WIDTH = 15;        // 15, 15 med 28,28 hard
+        public static int WORLD_HEIGHT = 15;
         public static int SIDE = 50;
         public static readonly int STEPS = 3;
         private static readonly int TIMER_INTERVAL = 50;
         private static readonly int SLEEP_INTERVAL = 2300;
-       // private static readonly int SEE_DISTANCE = 5;
+        private static int difficultyPenalty;
+        private static DIFFICULTY difficulty;
+        private int timePassed;
         public bool isAtStart;
         bool[,] maze;
         bool canMove;
         Door door;
 
-        public Form1()
-        {      
-                InitializeComponent();
-                isAtStart = true;
-                newGame(WORLD_HEIGHT,WORLD_WIDTH);
+        public Form1(GameDifficulty Difficulty)
+        {
+            InitializeComponent();
+            isAtStart = true;
+            difficulty = Difficulty.difficulty;
+            if (difficulty == DIFFICULTY.easy)
+                difficultyPenalty = 5;
+            if (difficulty == DIFFICULTY.medium)
+                difficultyPenalty = 10;
+            if (difficulty == DIFFICULTY.hard)
+                difficultyPenalty = 20;
+            WORLD_WIDTH = (int)difficulty;
+            WORLD_HEIGHT = (int)difficulty;
+            newGame(WORLD_WIDTH, WORLD_HEIGHT);
         }
 
         public void newGame(int height,int width)
         {
              player = new Player(height, 1);
+             label1.Text = "Score: 1000";
+             timePassed = 0;
              MazeGenerator mg = new MazeGenerator(WORLD_HEIGHT, WORLD_WIDTH);
              maze = mg.generate();
              mg = null;
@@ -51,6 +67,7 @@ namespace ProektVP
              this.MinimizeBox = false;
              canMove = false;
              playSimpleSound();
+             scoreTimer.Start();
         }
 
         private void playSimpleSound()
@@ -115,6 +132,7 @@ namespace ProektVP
                 Start(sender, e);
                 Thread.Sleep(500);
                 isAtStart = false;
+                label1.Visible = true;
             }
             Camera(sender, e);
         }
@@ -123,6 +141,7 @@ namespace ProektVP
         private void Start(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
+            label1.Visible = false;
             Brush brush = new SolidBrush(Color.Black);
             player.drawX = player.X * SIDE;
             player.drawY = player.Y * SIDE;
@@ -194,10 +213,25 @@ namespace ProektVP
                 player.Draw(g);
                 Thread.Sleep(TIMER_INTERVAL);
             }
-            
+
 
             if (player.X == WORLD_WIDTH && player.Y == 1)
-                Application.Exit();
+            {
+                scoreTimer.Stop();
+                String message = "You beat the game in " + timePassed.ToString() + " seconds and won " + player.score.ToString() + " points!";
+                MessageBox.Show(message, "CONGRATULATIONS!");
+                NameInput nameInput = new NameInput();
+                nameInput.Show();
+                player.name = nameInput.name;
+                if (difficulty == DIFFICULTY.easy)
+                    easyHighScores.Add(player);
+                if (difficulty == DIFFICULTY.medium)
+                    mediumHighScores.Add(player);
+                if (difficulty == DIFFICULTY.hard)
+                    hardHighScores.Add(player);
+               
+                Close();
+            }
             canMove = true;
         }
 
@@ -209,6 +243,13 @@ namespace ProektVP
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void scoreTimer_Tick(object sender, EventArgs e)
+        {
+            player.score -= difficultyPenalty;
+            timePassed++;
+            label1.Text = "Score: " + player.score.ToString();
         }
 
     }

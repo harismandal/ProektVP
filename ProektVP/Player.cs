@@ -9,8 +9,10 @@ using System.Threading.Tasks;
 namespace ProektVP
 {
     public enum DIRECTION { Up, Down, Left, Right, None };
-    class Player
+    public class Player
     {
+        public int score;
+        public string name;
         public Brush brush = new SolidBrush(Color.Red);
         public int X { get; set; }
         public int Y { get; set; }
@@ -25,6 +27,7 @@ namespace ProektVP
             Y = yCoordinate;
             direction = DIRECTION.None;
             leftFootForward = true;
+            score=1000;
         }
 
 

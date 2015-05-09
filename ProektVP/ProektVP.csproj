@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Difficulty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Difficulty.Designer.cs">
+      <DependentUpon>Difficulty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Door.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -51,12 +57,43 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameDifficulty.cs" />
+    <Compile Include="HallOfFame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HallOfFame.Designer.cs">
+      <DependentUpon>HallOfFame.cs</DependentUpon>
+    </Compile>
     <Compile Include="MazeGenerator.cs" />
+    <Compile Include="Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu.Designer.cs">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NameInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NameInput.Designer.cs">
+      <DependentUpon>NameInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Difficulty.resx">
+      <DependentUpon>Difficulty.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HallOfFame.resx">
+      <DependentUpon>HallOfFame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu.resx">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NameInput.resx">
+      <DependentUpon>NameInput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
