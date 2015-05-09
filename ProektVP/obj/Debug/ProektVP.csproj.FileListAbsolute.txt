@@ -38,3 +38,13 @@ C:\Users\Ivan\Desktop\Lepluto\ZA HARIS\ProektVP\obj\Debug\ProektVP.pdb
 C:\Users\Ivan\Desktop\ProjectVP\ProektVP\bin\Debug\ProektVP.exe.config
 C:\Users\Ivan\Desktop\ProjectVP\ProektVP\obj\Debug\ProektVP.exe
 C:\Users\Ivan\Desktop\ProjectVP\ProektVP\obj\Debug\ProektVP.pdb
+C:\Users\Ivan\Desktop\ProektVP\ProektVP\bin\Debug\ProektVP.exe
+C:\Users\Ivan\Desktop\ProektVP\ProektVP\bin\Debug\ProektVP.pdb
+C:\Users\Ivan\Desktop\ProektVP\ProektVP\obj\Debug\ProektVP.csprojResolveAssemblyReference.cache
+C:\Users\Ivan\Desktop\ProektVP\ProektVP\obj\Debug\ProektVP.Difficulty.resources
+C:\Users\Ivan\Desktop\ProektVP\ProektVP\obj\Debug\ProektVP.Form1.resources
+C:\Users\Ivan\Desktop\ProektVP\ProektVP\obj\Debug\ProektVP.HallOfFame.resources
+C:\Users\Ivan\Desktop\ProektVP\ProektVP\obj\Debug\ProektVP.Menu.resources
+C:\Users\Ivan\Desktop\ProektVP\ProektVP\obj\Debug\ProektVP.NameInput.resources
+C:\Users\Ivan\Desktop\ProektVP\ProektVP\obj\Debug\ProektVP.Properties.Resources.resources
+C:\Users\Ivan\Desktop\ProektVP\ProektVP\obj\Debug\ProektVP.csproj.GenerateResource.Cache

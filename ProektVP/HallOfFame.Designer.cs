@@ -28,24 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.highScoresLb = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
-            // listBox1
+            // highScoresLb
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(0, 0);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(202, 264);
-            this.listBox1.TabIndex = 0;
-            this.listBox1.Enter += new System.EventHandler(this.listBox1_Enter_1);
+            this.highScoresLb.FormattingEnabled = true;
+            this.highScoresLb.Location = new System.Drawing.Point(0, 0);
+            this.highScoresLb.Name = "highScoresLb";
+            this.highScoresLb.Size = new System.Drawing.Size(202, 264);
+            this.highScoresLb.TabIndex = 0;
+            this.highScoresLb.Enter += new System.EventHandler(this.listBox1_Enter_1);
             // 
             // HallOfFame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(202, 262);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.highScoresLb);
             this.Name = "HallOfFame";
             this.Text = "Hall Of Fame";
             this.ResumeLayout(false);
@@ -54,6 +54,6 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox highScoresLb;
     }
 }

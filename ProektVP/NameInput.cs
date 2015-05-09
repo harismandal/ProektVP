@@ -20,9 +20,9 @@ namespace ProektVP
 
         private void okayBtn_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != "")
+            if (nameInputTb.Text != "")
             {
-                Form1.player.name = textBox1.Text;
+                Form1.player.name = nameInputTb.Text;
                 Close();
             }
             else

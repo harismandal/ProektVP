@@ -22,26 +22,26 @@ namespace ProektVP
 
         private void listBox1_Enter_1(object sender, EventArgs e)
         {
-            listBox1.Items.Add("Easy difficulty:");
+            highScoresLb.Items.Add("Easy difficulty:");
             easy = easy.OrderByDescending(x => x.score).ToList();
             foreach (Player player in easy)
             {
                 String entry = player.name + "    " + player.score.ToString();
-                listBox1.Items.Add(entry);
+                highScoresLb.Items.Add(entry);
             }
-            listBox1.Items.Add("Medium difficulty:");
+            highScoresLb.Items.Add("Medium difficulty:");
             medium = medium.OrderByDescending(x => x.score).ToList();
             foreach (Player player in medium)
             {
                 String entry = player.name + "    " + player.score.ToString();
-                listBox1.Items.Add(entry);
+                highScoresLb.Items.Add(entry);
             }
-            listBox1.Items.Add("Hard difficulty:");
+            highScoresLb.Items.Add("Hard difficulty:");
             hard = hard.OrderByDescending(x => x.score).ToList();
             foreach (Player player in hard)
             {
                 String entry = player.name + "    " + player.score.ToString();
-                listBox1.Items.Add(entry);
+                highScoresLb.Items.Add(entry);
             }
         }
     }

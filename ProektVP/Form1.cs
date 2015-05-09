@@ -14,11 +14,12 @@ namespace ProektVP
 {
     public partial class Form1 : Form
     {
+        private SoundPlayer simpleSound;
         public static Player player;
         public static List<Player> easyHighScores = new List<Player>();
         public static List<Player> mediumHighScores = new List<Player>();
         public static List<Player> hardHighScores = new List<Player>();
-        public static int WORLD_WIDTH = 15;        // 15, 15 med 28,28 hard
+        public static int WORLD_WIDTH = 15;        //5,5 easy 15, 15 medium 28,28 hard
         public static int WORLD_HEIGHT = 15;
         public static int SIDE = 50;
         public static readonly int STEPS = 3;
@@ -51,14 +52,12 @@ namespace ProektVP
         public void newGame(int height,int width)
         {
              player = new Player(height, 1);
-             label1.Text = "Score: 1000";
+             scoreCounterLbl.Text = "Score: 1000";
              timePassed = 0;
              MazeGenerator mg = new MazeGenerator(WORLD_HEIGHT, WORLD_WIDTH);
              maze = mg.generate();
              mg = null;
              door= new Door(1,WORLD_WIDTH);
-           //  this.Width = SIDE * (width + 2)+16;         //to fix
-           //  this.Height = SIDE * (height + 2)+42;             //to fix
              this.Width = 600+16;
              this.Height = 600+42;
              SIDE =600/Math.Max(WORLD_WIDTH+2, WORLD_HEIGHT+2);
@@ -72,8 +71,7 @@ namespace ProektVP
 
         private void playSimpleSound()
         {
-            SoundPlayer simpleSound = new SoundPlayer(@"tank.wav");
-            //SoundPlayer simpleSound = new SoundPlayer(@"assets\tank.wav");
+            simpleSound = new SoundPlayer(@"tank.wav");
             simpleSound.Play();
         }
 
@@ -132,7 +130,7 @@ namespace ProektVP
                 Start(sender, e);
                 Thread.Sleep(500);
                 isAtStart = false;
-                label1.Visible = true;
+                scoreCounterLbl.Visible = true;
             }
             Camera(sender, e);
         }
@@ -141,7 +139,7 @@ namespace ProektVP
         private void Start(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            label1.Visible = false;
+            scoreCounterLbl.Visible = false;
             Brush brush = new SolidBrush(Color.Black);
             player.drawX = player.X * SIDE;
             player.drawY = player.Y * SIDE;
@@ -177,7 +175,6 @@ namespace ProektVP
             {
                 g.Clear(Color.White);
                 Tuple<int, int> selectedDirection = player.GetOffset();
-               // door.Draw(g);   //to fix
                 int xOffset = selectedDirection.Item2 * (k - 2) * SIDE / STEPS;
                 int yOffset = selectedDirection.Item1 * (k - 2) * SIDE / STEPS;
                 for (int i = -3; i < 5; i++)
@@ -195,21 +192,6 @@ namespace ProektVP
                         }
                     }
                 }
-
-                /*int centerX = player.Y * SIDE + SIDE / 2;
-                int centerY = player.X * SIDE + SIDE / 2;
-                for (int i = 0; i < SIDE * (WORLD_HEIGHT + 1); i+=10)
-                {
-                    for (int j = 0; j < SIDE * (WORLD_WIDTH + 1); j+=10)
-                    {
-                        if (Math.Sqrt((centerX - j) * (centerX - j) + (centerY - i) * (centerY - i)) > (double)5*SIDE/2)
-                            g.FillRectangle(new SolidBrush(Color.Gray), i, j, 10, 10);
-
-                    }
-                }*/
-                
-                
-                //player.MoveAnimation();
                 player.Draw(g);
                 Thread.Sleep(TIMER_INTERVAL);
             }
@@ -218,6 +200,7 @@ namespace ProektVP
             if (player.X == WORLD_WIDTH && player.Y == 1)
             {
                 scoreTimer.Stop();
+                simpleSound.Stop();
                 String message = "You beat the game in " + timePassed.ToString() + " seconds and won " + player.score.ToString() + " points!";
                 MessageBox.Show(message, "CONGRATULATIONS!");
                 NameInput nameInput = new NameInput();
@@ -249,7 +232,7 @@ namespace ProektVP
         {
             player.score -= difficultyPenalty;
             timePassed++;
-            label1.Text = "Score: " + player.score.ToString();
+            scoreCounterLbl.Text = "Score: " + player.score.ToString();
         }
 
     }

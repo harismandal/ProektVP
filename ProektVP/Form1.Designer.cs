@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.scoreTimer = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
+            this.scoreCounterLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // scoreTimer
@@ -38,22 +38,22 @@
             this.scoreTimer.Interval = 1000;
             this.scoreTimer.Tick += new System.EventHandler(this.scoreTimer_Tick);
             // 
-            // label1
+            // scoreCounterLbl
             // 
-            this.label1.BackColor = System.Drawing.SystemColors.Control;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 26);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.scoreCounterLbl.BackColor = System.Drawing.SystemColors.Control;
+            this.scoreCounterLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.scoreCounterLbl.Location = new System.Drawing.Point(0, 0);
+            this.scoreCounterLbl.Name = "scoreCounterLbl";
+            this.scoreCounterLbl.Size = new System.Drawing.Size(127, 26);
+            this.scoreCounterLbl.TabIndex = 0;
+            this.scoreCounterLbl.Text = "label1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.scoreCounterLbl);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -66,7 +66,7 @@
         #endregion
 
         private System.Windows.Forms.Timer scoreTimer;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label scoreCounterLbl;
     }
 }
 
