@@ -120,7 +120,10 @@ namespace ProektVP
                         }
                         break;
                     default:
-                        break;
+                        {
+                            canMove = true;
+                            return;
+                        }
                 }
 
 
