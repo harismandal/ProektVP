@@ -77,6 +77,11 @@ namespace ProektVP
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Escape)
+            {
+                simpleSound.Stop();
+                Close();
+            }
             if (canMove)
             {
                 canMove = false;

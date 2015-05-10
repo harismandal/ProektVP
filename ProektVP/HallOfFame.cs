@@ -26,22 +26,31 @@ namespace ProektVP
             easy = easy.OrderByDescending(x => x.score).ToList();
             foreach (Player player in easy)
             {
-                String entry = player.name + "    " + player.score.ToString();
-                highScoresLb.Items.Add(entry);
+                if (player.name != null)
+                {
+                    String entry = player.name + "    " + player.score.ToString();
+                    highScoresLb.Items.Add(entry);
+                }
             }
             highScoresLb.Items.Add("Medium difficulty:");
             medium = medium.OrderByDescending(x => x.score).ToList();
             foreach (Player player in medium)
             {
-                String entry = player.name + "    " + player.score.ToString();
-                highScoresLb.Items.Add(entry);
+                if (player.name != null)
+                {
+                    String entry = player.name + "    " + player.score.ToString();
+                    highScoresLb.Items.Add(entry);
+                }
             }
             highScoresLb.Items.Add("Hard difficulty:");
             hard = hard.OrderByDescending(x => x.score).ToList();
             foreach (Player player in hard)
             {
-                String entry = player.name + "    " + player.score.ToString();
-                highScoresLb.Items.Add(entry);
+                if (player.name != null)
+                {
+                    String entry = player.name + "    " + player.score.ToString();
+                    highScoresLb.Items.Add(entry);
+                }
             }
         }
     }
