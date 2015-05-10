@@ -23,21 +23,24 @@ namespace ProektVP
         public static int WORLD_HEIGHT = 15;
         public static int SIDE = 50;
         public static readonly int STEPS = 3;
-        private static readonly int TIMER_INTERVAL = 50;
-        private static readonly int SLEEP_INTERVAL = 2300;
+        private static readonly int TIMER_INTERVAL = 40;
+        private static readonly int SLEEP_INTERVAL = 2800;
         private static int difficultyPenalty;
         private static DIFFICULTY difficulty;
         private int timePassed;
         public bool isAtStart;
         bool[,] maze;
-        bool canMove;
+        private static bool canMove;
         Door door;
         private readonly object syncLock = new object();
+        private static Brush brush = new SolidBrush(Color.Black);
+        private static Brush doorBrush = new SolidBrush(Color.Brown);
 
         public Form1(GameDifficulty Difficulty)
         {
             InitializeComponent();
             isAtStart = true;
+            canMove = false;
             difficulty = Difficulty.difficulty;
             if (difficulty == DIFFICULTY.easy)
                 difficultyPenalty = 5;
@@ -50,30 +53,29 @@ namespace ProektVP
             newGame(WORLD_WIDTH, WORLD_HEIGHT);
         }
 
-        public void newGame(int height,int width)
+        public void newGame(int height, int width)
         {
-             player = new Player(height, 1);
-             scoreCounterLbl.Text = "Score: 1000";
-             timePassed = 0;
-             MazeGenerator mg = new MazeGenerator(WORLD_HEIGHT, WORLD_WIDTH);
-             maze = mg.generate();
-             mg = null;
-             door= new Door(1,WORLD_WIDTH);
-             this.Width = 600+16;
-             this.Height = 600+42;
-             SIDE =600/Math.Max(WORLD_WIDTH+2, WORLD_HEIGHT+2);
-             this.FormBorderStyle = FormBorderStyle.FixedSingle; //disables resize
-             this.MaximizeBox = false;
-             this.MinimizeBox = false;
-             canMove = false;
-             playSimpleSound();
-             scoreTimer.Start();
+            player = new Player(height, 1);
+            scoreCounterLbl.Text = "Score: 1000";
+            timePassed = 0;
+            MazeGenerator mg = new MazeGenerator(WORLD_HEIGHT, WORLD_WIDTH);
+            maze = mg.generate();
+            mg = null;
+            door = new Door(1, WORLD_WIDTH);
+            this.Width = 600 + 16;
+            this.Height = 600 + 42;
+            SIDE = 600 / Math.Max(WORLD_WIDTH + 2, WORLD_HEIGHT + 2);
+            this.FormBorderStyle = FormBorderStyle.FixedSingle; //disables resize
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            playSimpleSound();
+            scoreTimer.Start();
         }
 
         private void playSimpleSound()
         {
             simpleSound = new SoundPlayer(@"tank.wav");
-            simpleSound.Play();
+            simpleSound.PlayLooping();
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
@@ -83,10 +85,15 @@ namespace ProektVP
                 simpleSound.Stop();
                 Close();
             }
-            lock (syncLock) {
-            if (canMove)
+            lock (syncLock)
             {
-                canMove = false;
+                if (canMove)
+                {
+                    canMove = false;
+                }
+                else return;
+
+
                 switch (e.KeyCode)
                 {
                     case Keys.Down:
@@ -131,9 +138,7 @@ namespace ProektVP
                             canMove = true;
                             return;
                         }
-                    }
-              }
-
+                }
 
                 Invalidate();
             }
@@ -141,29 +146,30 @@ namespace ProektVP
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+            lock (syncLock) {
             if (isAtStart == true)
             {
                 Start(sender, e);
-                Thread.Sleep(500);
-                isAtStart = false;
                 scoreCounterLbl.Visible = true;
             }
-            Camera(sender, e);
+            else Camera(sender, e);
+         }
         }
 
 
         private void Start(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics;
-            scoreCounterLbl.Visible = false;
-            Brush brush = new SolidBrush(Color.Black);
-            player.drawX = player.X * SIDE;
-            player.drawY = player.Y * SIDE;
-            g.Clear(Color.White);
-            door.Draw(g);
-                for (int i = 0; i < WORLD_HEIGHT+2; i++)
+            lock (syncLock)
+            {
+                Graphics g = e.Graphics;
+                scoreCounterLbl.Visible = false;
+                player.drawX = player.X * SIDE;
+                player.drawY = player.Y * SIDE;
+                g.Clear(Color.White);
+                door.Draw(g);
+                for (int i = 0; i < WORLD_HEIGHT + 2; i++)
                 {
-                    for (int j = 0; j < WORLD_WIDTH+2; j++)
+                    for (int j = 0; j < WORLD_WIDTH + 2; j++)
                     {
                         if (maze[i, j])
                         {
@@ -171,67 +177,75 @@ namespace ProektVP
                         }
                     }
                 }
-                
-              player.Draw(g);
-             Thread.Sleep(SLEEP_INTERVAL);
 
-            SIDE = 120;
-            canMove = true;
+                player.Draw(g);
+                Thread.Sleep(SLEEP_INTERVAL);
+
+                SIDE = 120;
+                player.drawX = 2 * SIDE;
+                player.drawY = 2 * SIDE;
+
+                canMove = true;
+                isAtStart = false;
+            }
         }
 
-        
+
         private void Camera(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics;
-            Brush brush = new SolidBrush(Color.Black);
-            player.drawX = 2 * SIDE;
-            player.drawY = 2 * SIDE;
-            player.Move();
-            for (int k = 0; k < STEPS; k++)
+            lock (syncLock)
             {
-                g.Clear(Color.White);
-                Tuple<int, int> selectedDirection = player.GetOffset();
-                int xOffset = selectedDirection.Item2 * (k - 2) * SIDE / STEPS;
-                int yOffset = selectedDirection.Item1 * (k - 2) * SIDE / STEPS;
-                for (int i = -3; i < 5; i++)
+                Graphics g = e.Graphics;
+                player.Move();
+                for (int k = 0; k < STEPS; k++)
                 {
-                    for (int j = -3; j < 5; j++)
+                    g.Clear(Color.White);
+                    Tuple<int, int> selectedDirection = player.GetOffset();
+                    int xOffset = selectedDirection.Item2 * (k - 2) * SIDE / STEPS;
+                    int yOffset = selectedDirection.Item1 * (k - 2) * SIDE / STEPS;
+                    for (int i = -3; i < 5; i++)
                     {
-
-                        if (outOfBounds(player.Y + i, player.X + j)) g.FillRectangle(brush, (j + 2) * SIDE + xOffset, (i + 2) * SIDE + yOffset, SIDE, SIDE);
-                        else if (maze[player.Y + i, player.X + j])
+                        for (int j = -3; j < 5; j++)
                         {
-                            g.FillRectangle(brush, (j + 2) * SIDE + xOffset, (i + 2) * SIDE + yOffset, SIDE, SIDE);
-                        }
-                        else if ((player.Y+i)==1&&(player.X+j)==WORLD_WIDTH){
-                            g.FillRectangle(new SolidBrush(Color.Brown), (j+2) * SIDE + xOffset, (i+2) * SIDE+yOffset, SIDE, SIDE); //door
+
+                            if (outOfBounds(player.Y + i, player.X + j)) g.FillRectangle(brush, (j + 2) * SIDE + xOffset, (i + 2) * SIDE + yOffset, SIDE, SIDE);
+                            else if (maze[player.Y + i, player.X + j])
+                            {
+                                g.FillRectangle(brush, (j + 2) * SIDE + xOffset, (i + 2) * SIDE + yOffset, SIDE, SIDE);
+                            }
+                            else if ((player.Y + i) == 1 && (player.X + j) == WORLD_WIDTH)
+                            {
+                                g.FillRectangle(doorBrush, (j + 2) * SIDE + xOffset, (i + 2) * SIDE + yOffset, SIDE, SIDE); //door
+                            }
                         }
                     }
+                    player.Draw(g);
+                    // if (k!=STEPS-1) 
+                    Thread.Sleep(TIMER_INTERVAL);
                 }
-                player.Draw(g);
-                Thread.Sleep(TIMER_INTERVAL);
-            }
 
 
-            if (player.X == WORLD_WIDTH && player.Y == 1)
-            {
-                scoreTimer.Stop();
-                simpleSound.Stop();
-                String message = "You beat the game in " + timePassed.ToString() + " seconds and won " + player.score.ToString() + " points!";
-                MessageBox.Show(message, "CONGRATULATIONS!");
-                NameInput nameInput = new NameInput();
-                nameInput.Show();
-                player.name = nameInput.name;
-                if (difficulty == DIFFICULTY.easy)
-                    easyHighScores.Add(player);
-                if (difficulty == DIFFICULTY.medium)
-                    mediumHighScores.Add(player);
-                if (difficulty == DIFFICULTY.hard)
-                    hardHighScores.Add(player);
-               
-                Close();
+                if (player.X == WORLD_WIDTH && player.Y == 1)
+                {
+                    scoreTimer.Stop();
+                    simpleSound.Stop();
+                    String message = "You beat the game in " + timePassed.ToString() + " seconds and won " + player.score.ToString() + " points!";
+                    MessageBox.Show(message, "CONGRATULATIONS!");
+                    NameInput nameInput = new NameInput();
+                    nameInput.Show();
+                    player.name = nameInput.name;
+                    if (difficulty == DIFFICULTY.easy)
+                        easyHighScores.Add(player);
+                    if (difficulty == DIFFICULTY.medium)
+                        mediumHighScores.Add(player);
+                    if (difficulty == DIFFICULTY.hard)
+                        hardHighScores.Add(player);
+
+                    Close();
+                }
+
+                canMove = true;
             }
-            canMove = true;
         }
 
         private Boolean outOfBounds(int yCoordinate, int xCoordinate)
