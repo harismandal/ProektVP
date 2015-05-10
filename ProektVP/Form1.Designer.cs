@@ -56,7 +56,7 @@
             this.ControlBox = false;
             this.Controls.Add(this.scoreCounterLbl);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Labyrinthus";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             this.ResumeLayout(false);

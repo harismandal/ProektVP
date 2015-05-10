@@ -9,7 +9,7 @@ namespace ProektVP
     class MazeGenerator
     {
         int n, m;
-        bool[,] passed, maze;
+        bool[,] maze;
         readonly int[,] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
 
         Random rnd;
@@ -17,13 +17,15 @@ namespace ProektVP
         {
             n = rN + 2;
             m = rM + 2;
-            passed = new bool[n, m];
             maze = new bool[n, m];
             rnd = new Random();
         }
 
         public bool[,] generate()
         {
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < m; j++)
+                    maze[i, j] = false;
             Tuple<int, int> firstCell = new Tuple<int, int>(rnd.Next(1, n - 1), rnd.Next(1, m - 1));
             dfs(firstCell);
             for (int i = 0; i < n; i++)
