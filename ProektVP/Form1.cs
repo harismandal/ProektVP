@@ -32,6 +32,7 @@ namespace ProektVP
         bool[,] maze;
         bool canMove;
         Door door;
+        private readonly object syncLock = new object();
 
         public Form1(GameDifficulty Difficulty)
         {
@@ -82,49 +83,56 @@ namespace ProektVP
                 simpleSound.Stop();
                 Close();
             }
+            lock (syncLock) {
             if (canMove)
             {
                 canMove = false;
                 switch (e.KeyCode)
                 {
                     case Keys.Down:
-                        player.direction = DIRECTION.Down;
                         if (maze[player.Y + 1, player.X])
                         {
+                            player.direction = DIRECTION.None;
                             canMove = true;
                             return;
                         }
+                        else player.direction = DIRECTION.Down;
                         break;
                     case Keys.Up:
-                        player.direction = DIRECTION.Up;
                         if (maze[player.Y - 1, player.X])
                         {
+                            player.direction = DIRECTION.None;
                             canMove = true;
                             return;
                         }
+                        else player.direction = DIRECTION.Up;
                         break;
                     case Keys.Left:
-                        player.direction = DIRECTION.Left;
                         if (maze[player.Y, player.X - 1])
                         {
+                            player.direction = DIRECTION.None;
                             canMove = true;
                             return;
                         }
+                        else player.direction = DIRECTION.Left;
                         break;
                     case Keys.Right:
-                        player.direction = DIRECTION.Right;
                         if (maze[player.Y, player.X + 1])
                         {
+                            player.direction = DIRECTION.None;
                             canMove = true;
                             return;
                         }
+                        else player.direction = DIRECTION.Right;
                         break;
                     default:
                         {
+                            player.direction = DIRECTION.None;
                             canMove = true;
                             return;
                         }
-                }
+                    }
+              }
 
 
                 Invalidate();
@@ -166,9 +174,9 @@ namespace ProektVP
                 
               player.Draw(g);
              Thread.Sleep(SLEEP_INTERVAL);
-            
-            canMove = true;
+
             SIDE = 120;
+            canMove = true;
         }
 
         

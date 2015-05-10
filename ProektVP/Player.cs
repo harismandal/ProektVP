@@ -19,21 +19,17 @@ namespace ProektVP
         public int drawX { get; set; }
         public int drawY { get; set; }
         public DIRECTION direction { get; set; }
-        public bool leftFootForward { get; set; }
 
         public Player(int yCoordinate,int xCoordinate)
         {
             X = xCoordinate;
             Y = yCoordinate;
             direction = DIRECTION.None;
-            leftFootForward = true;
             score=1000;
         }
 
-
         public void Move()
         {
-            leftFootForward=!leftFootForward;
             if (direction == DIRECTION.Right)
             {
                 X++;
@@ -56,33 +52,8 @@ namespace ProektVP
             }
         }
 
-        public void MoveAnimation()
-        {
-            leftFootForward = !leftFootForward;
-            if (direction == DIRECTION.Right)
-            {
-                drawX+=Form1.SIDE/Form1.STEPS;
-                return;
-            }
-            if (direction == DIRECTION.Left)
-            {
-                drawX -=Form1.SIDE / Form1.STEPS;
-                return;
-            }
-            if (direction == DIRECTION.Up)
-            {
-                drawY -=Form1.SIDE / Form1.STEPS;
-                return;
-            }
-            if (direction == DIRECTION.Down)
-            {
-                drawY += Form1.SIDE / Form1.STEPS;
-                return;
-            }
-        }
         public Tuple<int,int> GetOffset()
         {
-            leftFootForward = !leftFootForward;
             if (direction == DIRECTION.Right)
             {
                 return new Tuple<int, int>(0, -1); 

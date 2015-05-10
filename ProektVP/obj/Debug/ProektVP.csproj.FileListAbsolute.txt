@@ -48,3 +48,7 @@ C:\Users\Ivan\Desktop\ProektVP\ProektVP\obj\Debug\ProektVP.Menu.resources
 C:\Users\Ivan\Desktop\ProektVP\ProektVP\obj\Debug\ProektVP.NameInput.resources
 C:\Users\Ivan\Desktop\ProektVP\ProektVP\obj\Debug\ProektVP.Properties.Resources.resources
 C:\Users\Ivan\Desktop\ProektVP\ProektVP\obj\Debug\ProektVP.csproj.GenerateResource.Cache
+C:\Users\Haris_2\Documents\Visual Studio 2013\Projects\ProektVP\ProektVP\obj\Debug\ProektVP.Difficulty.resources
+C:\Users\Haris_2\Documents\Visual Studio 2013\Projects\ProektVP\ProektVP\obj\Debug\ProektVP.HallOfFame.resources
+C:\Users\Haris_2\Documents\Visual Studio 2013\Projects\ProektVP\ProektVP\obj\Debug\ProektVP.Menu.resources
+C:\Users\Haris_2\Documents\Visual Studio 2013\Projects\ProektVP\ProektVP\obj\Debug\ProektVP.NameInput.resources
