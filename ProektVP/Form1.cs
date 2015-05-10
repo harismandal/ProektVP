@@ -6,9 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Media;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace ProektVP
 {
@@ -24,7 +23,7 @@ namespace ProektVP
         public static int SIDE = 50;
         public static readonly int STEPS = 3;
         private static readonly int TIMER_INTERVAL = 40;
-        private static readonly int SLEEP_INTERVAL = 2800;
+        private static readonly int SLEEP_INTERVAL = 1200;
         private static int difficultyPenalty;
         private static DIFFICULTY difficulty;
         private int timePassed;
@@ -32,15 +31,21 @@ namespace ProektVP
         bool[,] maze;
         private static bool canMove;
         Door door;
-        private readonly object syncLock = new object();
         private static Brush brush = new SolidBrush(Color.Black);
         private static Brush doorBrush = new SolidBrush(Color.Brown);
+        private static int animCount;
+        private static int xOffset;
+        private static int yOffset;
+        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Timer timerAnim;
+        private bool startGame;
 
         public Form1(GameDifficulty Difficulty)
         {
             InitializeComponent();
             isAtStart = true;
             canMove = false;
+            DoubleBuffered = true;
             difficulty = Difficulty.difficulty;
             if (difficulty == DIFFICULTY.easy)
                 difficultyPenalty = 5;
@@ -57,6 +62,7 @@ namespace ProektVP
         {
             player = new Player(height, 1);
             scoreCounterLbl.Text = "Score: 1000";
+            startGame = false;
             timePassed = 0;
             MazeGenerator mg = new MazeGenerator(WORLD_HEIGHT, WORLD_WIDTH);
             maze = mg.generate();
@@ -69,166 +75,44 @@ namespace ProektVP
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             playSimpleSound();
-            scoreTimer.Start();
+            timer = new System.Windows.Forms.Timer();
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Interval = SLEEP_INTERVAL;
+            timer.Start();
+            timerAnim = new System.Windows.Forms.Timer();
+            timerAnim.Tick += new EventHandler(timerAnim_Tick);
+            timerAnim.Interval = 1000 / TIMER_INTERVAL;
+            Invalidate();
         }
-
-        private void playSimpleSound()
+        private void timer_Tick(object sender, EventArgs e)
         {
-            simpleSound = new SoundPlayer(@"tank.wav");
-            simpleSound.PlayLooping();
-        }
-
-        private void Form1_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
+            if (startGame)
             {
-                simpleSound.Stop();
-                Close();
-            }
-            lock (syncLock)
-            {
-                if (canMove)
-                {
-                    canMove = false;
-                }
-                else return;
-
-
-                switch (e.KeyCode)
-                {
-                    case Keys.Down:
-                        if (maze[player.Y + 1, player.X])
-                        {
-                            player.direction = DIRECTION.None;
-                            canMove = true;
-                            return;
-                        }
-                        else player.direction = DIRECTION.Down;
-                        break;
-                    case Keys.Up:
-                        if (maze[player.Y - 1, player.X])
-                        {
-                            player.direction = DIRECTION.None;
-                            canMove = true;
-                            return;
-                        }
-                        else player.direction = DIRECTION.Up;
-                        break;
-                    case Keys.Left:
-                        if (maze[player.Y, player.X - 1])
-                        {
-                            player.direction = DIRECTION.None;
-                            canMove = true;
-                            return;
-                        }
-                        else player.direction = DIRECTION.Left;
-                        break;
-                    case Keys.Right:
-                        if (maze[player.Y, player.X + 1])
-                        {
-                            player.direction = DIRECTION.None;
-                            canMove = true;
-                            return;
-                        }
-                        else player.direction = DIRECTION.Right;
-                        break;
-                    default:
-                        {
-                            player.direction = DIRECTION.None;
-                            canMove = true;
-                            return;
-                        }
-                }
-
-                Invalidate();
-            }
-        }
-
-        private void Form1_Paint(object sender, PaintEventArgs e)
-        {
-            lock (syncLock) {
-            if (isAtStart == true)
-            {
-                Start(sender, e);
-                scoreCounterLbl.Visible = true;
-            }
-            else Camera(sender, e);
-         }
-        }
-
-
-        private void Start(object sender, PaintEventArgs e)
-        {
-            lock (syncLock)
-            {
-                Graphics g = e.Graphics;
-                scoreCounterLbl.Visible = false;
-                player.drawX = player.X * SIDE;
-                player.drawY = player.Y * SIDE;
-                g.Clear(Color.White);
-                door.Draw(g);
-                for (int i = 0; i < WORLD_HEIGHT + 2; i++)
-                {
-                    for (int j = 0; j < WORLD_WIDTH + 2; j++)
-                    {
-                        if (maze[i, j])
-                        {
-                            g.FillRectangle(brush, j * SIDE, i * SIDE, SIDE, SIDE);
-                        }
-                    }
-                }
-
-                player.Draw(g);
-                Thread.Sleep(SLEEP_INTERVAL);
-
                 SIDE = 120;
                 player.drawX = 2 * SIDE;
                 player.drawY = 2 * SIDE;
-
-                canMove = true;
                 isAtStart = false;
+                canMove = true;
+                scoreCounterLbl.Visible = true;
+                timer.Stop();
+                scoreTimer.Start();
             }
+            else startGame = true;
         }
-
-
-        private void Camera(object sender, PaintEventArgs e)
+        private void timerAnim_Tick(object sender, EventArgs e)
         {
-            lock (syncLock)
+            Tuple<int, int> selectedDirection = player.GetOffset();
+            xOffset = selectedDirection.Item2 * (animCount - 2) * SIDE / STEPS;
+            yOffset = selectedDirection.Item1 * (animCount - 2) * SIDE / STEPS;
+            if (animCount == 2)
             {
-                Graphics g = e.Graphics;
-                player.Move();
-                for (int k = 0; k < STEPS; k++)
-                {
-                    g.Clear(Color.White);
-                    Tuple<int, int> selectedDirection = player.GetOffset();
-                    int xOffset = selectedDirection.Item2 * (k - 2) * SIDE / STEPS;
-                    int yOffset = selectedDirection.Item1 * (k - 2) * SIDE / STEPS;
-                    for (int i = -3; i < 5; i++)
-                    {
-                        for (int j = -3; j < 5; j++)
-                        {
-
-                            if (outOfBounds(player.Y + i, player.X + j)) g.FillRectangle(brush, (j + 2) * SIDE + xOffset, (i + 2) * SIDE + yOffset, SIDE, SIDE);
-                            else if (maze[player.Y + i, player.X + j])
-                            {
-                                g.FillRectangle(brush, (j + 2) * SIDE + xOffset, (i + 2) * SIDE + yOffset, SIDE, SIDE);
-                            }
-                            else if ((player.Y + i) == 1 && (player.X + j) == WORLD_WIDTH)
-                            {
-                                g.FillRectangle(doorBrush, (j + 2) * SIDE + xOffset, (i + 2) * SIDE + yOffset, SIDE, SIDE); //door
-                            }
-                        }
-                    }
-                    player.Draw(g);
-                    // if (k!=STEPS-1) 
-                    Thread.Sleep(TIMER_INTERVAL);
-                }
-
-
+                canMove = true;
+                timerAnim.Stop();
                 if (player.X == WORLD_WIDTH && player.Y == 1)
                 {
                     scoreTimer.Stop();
                     simpleSound.Stop();
+                    Invalidate();
                     String message = "You beat the game in " + timePassed.ToString() + " seconds and won " + player.score.ToString() + " points!";
                     MessageBox.Show(message, "CONGRATULATIONS!");
                     NameInput nameInput = new NameInput();
@@ -243,19 +127,138 @@ namespace ProektVP
 
                     Close();
                 }
-
-                canMove = true;
             }
+            else animCount++;
+            Invalidate();
+        }
+        private void playSimpleSound()
+        {
+            simpleSound = new SoundPlayer(@"tank.wav");
+            simpleSound.PlayLooping();
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (isAtStart)
+            {
+                player.direction = DIRECTION.None;
+                canMove = true;
+                return;
+            }
+            if (e.KeyCode == Keys.Escape)
+            {
+                simpleSound.Stop();
+                Close();
+            }
+            if (canMove)
+            {
+                canMove = false;
+            }
+            else return;
+
+            switch (e.KeyCode)
+            {
+                case Keys.Down:
+                    if (maze[player.Y + 1, player.X])
+                    {
+                        player.direction = DIRECTION.None;
+                        canMove = true;
+                        return;
+                    }
+                    else player.direction = DIRECTION.Down;
+                    break;
+                case Keys.Up:
+                    if (maze[player.Y - 1, player.X])
+                    {
+                        player.direction = DIRECTION.None;
+                        canMove = true;
+                        return;
+                    }
+                    else player.direction = DIRECTION.Up;
+                    break;
+                case Keys.Left:
+                    if (maze[player.Y, player.X - 1])
+                    {
+                        player.direction = DIRECTION.None;
+                        canMove = true;
+                        return;
+                    }
+                    else player.direction = DIRECTION.Left;
+                    break;
+                case Keys.Right:
+                    if (maze[player.Y, player.X + 1])
+                    {
+                        player.direction = DIRECTION.None;
+                        canMove = true;
+                        return;
+                    }
+                    else player.direction = DIRECTION.Right;
+                    break;
+                default:
+                    {
+                        player.direction = DIRECTION.None;
+                        canMove = true;
+                        return;
+                    }
+            }
+
+            player.Move();
+            animCount = 0;
+            timerAnim.Start();
+        }
+
+        private void Start(object sender, Graphics g)
+        {
+            scoreCounterLbl.Visible = false;
+            player.drawX = player.X * SIDE;
+            player.drawY = player.Y * SIDE;
+
+            door.Draw(g);
+            for (int i = 0; i < WORLD_HEIGHT + 2; i++)
+            {
+                for (int j = 0; j < WORLD_WIDTH + 2; j++)
+                {
+                    if (maze[i, j])
+                    {
+                        g.FillRectangle(brush, j * SIDE, i * SIDE, SIDE, SIDE);
+                    }
+                }
+            }
+        }
+
+        private void Camera(object sender, Graphics g)
+        {
+            for (int i = -3; i < 5; i++)
+            {
+                for (int j = -3; j < 5; j++)
+                {
+                    if (outOfBounds(player.Y + i, player.X + j)) g.FillRectangle(brush, (j + 2) * SIDE + xOffset, (i + 2) * SIDE + yOffset, SIDE, SIDE);
+                    else if (maze[player.Y + i, player.X + j])
+                    {
+                        g.FillRectangle(brush, (j + 2) * SIDE + xOffset, (i + 2) * SIDE + yOffset, SIDE, SIDE);
+                    }
+                    else if ((player.Y + i) == 1 && (player.X + j) == WORLD_WIDTH)
+                    {
+                        g.FillRectangle(doorBrush, (j + 2) * SIDE + xOffset, (i + 2) * SIDE + yOffset, SIDE, SIDE); //door
+                    }
+                }
+            }
+        }
+
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.Clear(Color.White);
+            if (isAtStart)
+                Start(sender, g);
+            else
+                Camera(sender, g);
+            player.Draw(g);
         }
 
         private Boolean outOfBounds(int yCoordinate, int xCoordinate)
         {
             return (xCoordinate < 0 || xCoordinate > WORLD_WIDTH + 1 || yCoordinate < 0 || yCoordinate > WORLD_HEIGHT + 1);
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void scoreTimer_Tick(object sender, EventArgs e)
